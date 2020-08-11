@@ -1,4 +1,4 @@
-# Patched Dexcom G6 for Android 1.7.0.3 (international / region 3)
+# Patched Dexcom G6 for Android
 
 This repository provides a patch to remove the application compatibility check of the Dexcom G6 Android application. It also contains a set of scripts to build a patched application for yourself. 
 
