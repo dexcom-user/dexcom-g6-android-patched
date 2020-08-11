@@ -155,59 +155,40 @@
 .end method
 
 .method public performAppCompatibilityServerIO(Lcom/dexcom/cgm/model/AppRuntimeInfo;Ljava/lang/String;Lcom/dexcom/cgm/appcompatability/a;)V
-    .locals 1
+    .locals 2
 
-    invoke-direct {p0, p1}, Lcom/android/databinding/library/baseAdapters/c;->checkValidity(Lcom/dexcom/cgm/model/AppRuntimeInfo;)Lcom/dexcom/cgm/model/ValidityResult;
+    new-instance v0, Lcom/dexcom/cgm/model/ValidityResult;
 
-    move-result-object p1
+    invoke-direct {v0}, Lcom/dexcom/cgm/model/ValidityResult;-><init>()V
 
-    iput-object p1, p0, Lcom/android/databinding/library/baseAdapters/c;->m_validityResult:Lcom/dexcom/cgm/model/ValidityResult;
-
-    const-string p1, "00000000-0000-0000-0000-000000000000"
+    iput-object v0, p0, Lcom/android/databinding/library/baseAdapters/c;->m_validityResult:Lcom/dexcom/cgm/model/ValidityResult;
 
     iget-object v0, p0, Lcom/android/databinding/library/baseAdapters/c;->m_validityResult:Lcom/dexcom/cgm/model/ValidityResult;
 
-    invoke-virtual {v0}, Lcom/dexcom/cgm/model/ValidityResult;->getMessageId()Ljava/lang/String;
+    const-string v1, "ValidEnvironment"
 
-    move-result-object v0
+    invoke-virtual {v0, v1}, Lcom/dexcom/cgm/model/ValidityResult;->setValidity(Ljava/lang/String;)V
 
-    invoke-static {v0, p1}, Ljava/util/Objects;->equals(Ljava/lang/Object;Ljava/lang/Object;)Z
+    iget-object v0, p0, Lcom/android/databinding/library/baseAdapters/c;->m_validityResult:Lcom/dexcom/cgm/model/ValidityResult;
 
-    move-result p1
+    const-string v1, "00000000-0000-0000-0000-000000000000"
 
-    if-nez p1, :cond_0
+    invoke-virtual {v0, v1}, Lcom/dexcom/cgm/model/ValidityResult;->setMessageId(Ljava/lang/String;)V
 
-    iget-object p1, p0, Lcom/android/databinding/library/baseAdapters/c;->m_validityResult:Lcom/dexcom/cgm/model/ValidityResult;
-
-    invoke-virtual {p1}, Lcom/dexcom/cgm/model/ValidityResult;->getMessageId()Ljava/lang/String;
-
-    move-result-object p1
-
-    invoke-static {p1}, Ljava/util/UUID;->fromString(Ljava/lang/String;)Ljava/util/UUID;
-
-    move-result-object p1
-
-    invoke-direct {p0, p1, p2}, Lcom/android/databinding/library/baseAdapters/c;->getMessage(Ljava/util/UUID;Ljava/lang/String;)Lcom/dexcom/cgm/model/GetMessageResult;
-
-    move-result-object p1
-
-    iput-object p1, p0, Lcom/android/databinding/library/baseAdapters/c;->m_getMessageResult:Lcom/dexcom/cgm/model/GetMessageResult;
-
-    :cond_0
-    if-eqz p3, :cond_1
+    if-eqz p3, :cond_0
 
     invoke-interface {p3}, Lcom/dexcom/cgm/appcompatability/a;->serverCallFinished()V
 
     return-void
 
-    :cond_1
-    new-instance p1, Ljava/lang/IllegalArgumentException;
+    :cond_0
+    new-instance v0, Ljava/lang/IllegalArgumentException;
 
-    const-string p2, "AppCompatCompleteListener was null when server call was complete"
+    const-string v1, "AppCompatCompleteListener was null when server call was complete"
 
-    invoke-direct {p1, p2}, Ljava/lang/IllegalArgumentException;-><init>(Ljava/lang/String;)V
+    invoke-direct {v0, v1}, Ljava/lang/IllegalArgumentException;-><init>(Ljava/lang/String;)V
 
-    throw p1
+    throw v0
 .end method
 
 .method public setWebservice(Lcom/dexcom/cgm/appcompatability/webservice/a;)V

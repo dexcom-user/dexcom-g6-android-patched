@@ -2305,60 +2305,11 @@
 .end method
 
 .method public serverCallFinished()V
-    .locals 2
+    .locals 0
 
     invoke-direct {p0}, Lcom/dexcom/cgm/activities/AppCompatabilityActivity;->setNextCheckTimeToTomorrow()V
 
-    invoke-direct {p0}, Lcom/dexcom/cgm/activities/AppCompatabilityActivity;->getAppCompatibilityService()Lcom/dexcom/cgm/appcompatability/b;
-
-    move-result-object v0
-
-    invoke-interface {v0}, Lcom/dexcom/cgm/appcompatability/b;->getValidity()Lcom/dexcom/cgm/model/ValidityResult;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Lcom/dexcom/cgm/model/ValidityResult;->getMessageId()Ljava/lang/String;
-
-    move-result-object v0
-
-    const-string v1, "00000000-0000-0000-0000-000000000000"
-
-    invoke-static {v0, v1}, Ljava/util/Objects;->equals(Ljava/lang/Object;Ljava/lang/Object;)Z
-
-    move-result v0
-
-    if-eqz v0, :cond_0
-
     invoke-direct {p0}, Lcom/dexcom/cgm/activities/AppCompatabilityActivity;->goDirectlyToNextActivity()V
-
-    return-void
-
-    :cond_0
-    invoke-direct {p0}, Lcom/dexcom/cgm/activities/AppCompatabilityActivity;->getAppCompatibilityService()Lcom/dexcom/cgm/appcompatability/b;
-
-    move-result-object v0
-
-    invoke-interface {v0}, Lcom/dexcom/cgm/appcompatability/b;->getValidity()Lcom/dexcom/cgm/model/ValidityResult;
-
-    move-result-object v0
-
-    iput-object v0, p0, Lcom/dexcom/cgm/activities/AppCompatabilityActivity;->m_validityResult:Lcom/dexcom/cgm/model/ValidityResult;
-
-    invoke-direct {p0}, Lcom/dexcom/cgm/activities/AppCompatabilityActivity;->getAppCompatibilityService()Lcom/dexcom/cgm/appcompatability/b;
-
-    move-result-object v0
-
-    invoke-interface {v0}, Lcom/dexcom/cgm/appcompatability/b;->getMessageResult()Lcom/dexcom/cgm/model/GetMessageResult;
-
-    move-result-object v0
-
-    iput-object v0, p0, Lcom/dexcom/cgm/activities/AppCompatabilityActivity;->m_getMessageResult:Lcom/dexcom/cgm/model/GetMessageResult;
-
-    invoke-direct {p0}, Lcom/dexcom/cgm/activities/AppCompatabilityActivity;->processNewAppCompatability()V
-
-    const/4 v0, 0x0
-
-    iput-boolean v0, p0, Lcom/dexcom/cgm/activities/AppCompatabilityActivity;->m_isFreshInstall:Z
 
     return-void
 .end method
