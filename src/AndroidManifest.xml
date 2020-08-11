@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?><manifest xmlns:android="http://schemas.android.com/apk/res/android" android:compileSdkVersion="28" android:compileSdkVersionCodename="9" package="com.dexcom.g6.region3.mmol" platformBuildVersionCode="1070003" platformBuildVersionName="1.7.0.3">
+    <uses-permission android:name="com.google.android.permission.PROVIDE_BACKGROUND"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <permission android:name="com.dexcom.g6.permission.Heartbeat" android:protectionLevel="signature"/>
+    <permission android:label="external_permission" android:name="com.dexcom.g6.content_provider.READ_PERMISSION" android:protectionLevel="signature"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.front" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.flash" android:required="false"/>
+    <uses-feature android:name="android.hardware.screen.landscape" android:required="false"/>
+    <uses-feature android:name="android.hardware.wifi" android:required="false"/>
+    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+    <application android:allowBackup="false" android:appComponentFactory="android.support.v4.app.CoreComponentFactory" android:icon="@drawable/ic_app_mmoll" android:label="@string/app_name" android:name="com.dexcom.cgm.CgmApplication" android:supportsRtl="true" android:theme="@style/DexTheme">
+        <activity android:name="com.dexcom.cgm.activities.AppCompatabilityActivity" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="dexcomg6"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <service android:enabled="true" android:exported="false" android:name="com.dexcom.cgm.test.TestService"/>
+        <receiver android:enabled="true" android:exported="true" android:name="com.dexcom.cgm.StartAtBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.dexcom.cgm.UpdateReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.dexcom.cgm.ShutdownReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_SHUTDOWN"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.dexcom.cgm.PackageAddedOrRemovedReciever">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED"/>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.dexcom.cgm.TimeChangedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.TIME_SET"/>
+                <action android:name="android.intent.action.ACTION_TIME_CHANGED"/>
+            </intent-filter>
+        </receiver>
+        <meta-data android:name="firebase_crashlytics_collection_enabled" android:value="true"/>
+        <meta-data android:name="com.samsung.android.health.platform_type" android:value="rel"/>
+        <meta-data android:name="com.samsung.android.health.permission.write" android:value="com.samsung.health.blood_glucose;"/>
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
+        <meta-data android:name="android.max_aspect" android:value="2.1"/>
+        <service android:enabled="true" android:exported="false" android:name="com.dexcom.cgm.activities.wear.DataService"/>
+        <provider android:authorities="com.dexcom.g6.region3.mmol.provider" android:exported="false" android:grantUriPermissions="true" android:name="android.support.v4.content.FileProvider">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths"/>
+        </provider>
+        <activity android:name="com.dexcom.cgm.activities.setupwizard.LegalAgreementsActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.MeterEntryActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysVisible"/>
+        <activity android:name="com.dexcom.cgm.activities.MenuActivity" android:screenOrientation="portrait">
+            <intent-filter>
+                <category android:name="android.intent.category.NOTIFICATION_PREFERENCES"/>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".TrendActivity"/>
+        </activity>
+        <activity android:name="com.dexcom.cgm.activities.TransmitterSnEntryActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysVisible"/>
+        <activity android:name="com.dexcom.cgm.activities.AccountEditActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.alertsettings.AlertsActivity" android:parentActivityName="com.dexcom.cgm.activities.TrendActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.alertsettings.alertschedule.setupwizard.AlertScheduleStartTimeActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.alertsettings.alertschedule.setupwizard.AlertScheduleSetScheduleDaysActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.alertsettings.alertschedule.setupwizard.AlertScheduleSetLowGlucoseActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.alertsettings.alertschedule.setupwizard.AlertScheduleSetHighGlucoseActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.alertsettings.alertschedule.setupwizard.AlertScheduleAlwaysSoundActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.alertsettings.alertschedule.setupwizard.AlertScheduleNameActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysVisible"/>
+        <activity android:name="com.dexcom.cgm.activities.alertsettings.alertschedule.setupwizard.AlertScheduleSummaryActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.alertsettings.alertschedule.AlertScheduleEditNameActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateVisible"/>
+        <activity android:name="com.dexcom.cgm.activities.alertsettings.alertschedule.AlertScheduleEditTimeActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.alertsettings.alertschedule.AlertScheduleEditDaysActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.alertsettings.UrgentLowAlertSettingsActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.alertsettings.UrgentLowSoonAlertSettingsActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.alertsettings.UserLowAlertSettingsActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.alertsettings.UserHighAlertSettingsActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.alertsettings.RiseRateAlertSettingsActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.alertsettings.FallRateAlertSettingsActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.alertsettings.SignalLossAlertSettingsActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.alertsettings.NoReadingsAlertSettingsActivity" android:screenOrientation="portrait"/>
+        <activity android:launchMode="singleTask" android:name="com.dexcom.cgm.activities.TrendActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="orientation|screenSize" android:name="com.dexcom.cgm.activities.VideoViewActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+        <activity android:name="com.dexcom.cgm.activities.HelpActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.WebLoginActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.setupwizard.WelcomeScreen" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.PairTransmitterInfoActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.setupwizard.SetupWizardActivity" android:screenOrientation="portrait"/>
+        <activity android:label="@string/dex_event_entry_exercise_title" android:name="com.dexcom.cgm.activities.event_entry.ExerciseEntryActivity" android:screenOrientation="portrait"/>
+        <activity android:label="@string/dex_event_entry_health_title" android:name="com.dexcom.cgm.activities.event_entry.HealthEntryActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.notifications.NotificationDemoActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.notifications.ResumingActivity"/>
+        <activity android:name="com.dexcom.cgm.activities.alertdialogs.DialogDemoActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.support.ContactDexcomActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.support.SalesSupportActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.support.TechnicalSupportActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.support.TrainingActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.support.BillingActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.FAQActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.share.RemoteMonitoringTutorialActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.share.InviteFollowersActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.share.ShareMainActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.share.EditFollowerActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.share.FollowerInvitationNameAndEmailActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.share.FollowerInvitationTrendGraphActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.share.FollowerInvitationAlertSettingsActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.share.FollowerInvitationReviewActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.TransmitterSnScanActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.barcodeScanning.ScanBarcodeActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.PersistentNotificationSettingsActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.SettingsTransmitterActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.SettingsGraphHeightActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.HelpSafetyStatementsActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.DexWebViewActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.HelpAboutActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.HelpHowToActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.PermissionCheckActivity"/>
+        <activity android:name="com.dexcom.cgm.activities.event_entry.QuantityEventActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.WhatsNewActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.event_entry.EventHistoryActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.HealthAppsActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.SensorRemovalActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.TreatmentDecisionsActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.LandscapeTrendActivity" android:screenOrientation="sensorLandscape"/>
+        <activity android:name="com.dexcom.cgm.activities.alertsettings.alertschedule.setupwizard.AlertScheduleStopTimeActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.NoSensorCodeActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.EnterSensorCodeActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.SensorCodeEntry" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.SensorCodeScanActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.SensorCodeIntroActivity"/>
+        <activity android:name="com.dexcom.cgm.activities.SensorInsertionInstructionActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.data_consent.DataConsentActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.data_consent.ConsentToUseShareActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.dexcom.cgm.activities.OnDuoWebViewActivity" android:screenOrientation="portrait"/>
+        <service android:enabled="true" android:exported="false" android:name="com.dexcom.cgm.component_provider.CgmService" android:stopWithTask="false"/>
+        <receiver android:enabled="true" android:exported="false" android:name="com.dexcom.cgm.component_provider.HeartbeatAlarmReceiver"/>
+        <provider android:authorities="com.dexcom.g6.content_provider" android:enabled="true" android:exported="true" android:name="com.dexcom.g6.content_provider.CgmContentProvider" android:permission="com.dexcom.g6.content_provider.READ_PERMISSION"/>
+        <service android:enabled="true" android:exported="false" android:name="com.dexcom.cgm.tx.mediator.BleCommunicationService" android:stopWithTask="false"/>
+        <service android:exported="false" android:name="com.dexcom.cgm.share.PostRealtimeEventService"/>
+        <uses-library android:name="com.google.android.wearable" android:required="false"/>
+        <provider android:authorities="com.dexcom.g6.region3.mmol.crashlyticsinitprovider" android:exported="false" android:initOrder="90" android:name="com.crashlytics.android.CrashlyticsInitProvider"/>
+        <provider android:authorities="com.dexcom.g6.region3.mmol.lifecycle-trojan" android:exported="false" android:multiprocess="true" android:name="android.arch.lifecycle.ProcessLifecycleOwnerInitializer"/>
+        <activity android:clearTaskOnLaunch="true" android:name="com.journeyapps.barcodescanner.CaptureActivity" android:screenOrientation="sensorLandscape" android:stateNotNeeded="true" android:theme="@style/zxing_CaptureTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
+        <receiver android:enabled="true" android:exported="false" android:name="com.google.android.gms.measurement.AppMeasurementReceiver"/>
+        <receiver android:enabled="true" android:exported="true" android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver" android:permission="android.permission.INSTALL_PACKAGES">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER"/>
+            </intent-filter>
+        </receiver>
+        <service android:enabled="true" android:exported="false" android:name="com.google.android.gms.measurement.AppMeasurementService"/>
+        <service android:enabled="true" android:exported="false" android:name="com.google.android.gms.measurement.AppMeasurementJobService" android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service android:exported="false" android:name="com.google.firebase.components.ComponentDiscoveryService">
+            <meta-data android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
+            <meta-data android:name="com.google.firebase.components:com.google.firebase.iid.Registrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
+        </service>
+        <receiver android:exported="true" android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver" android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+            </intent-filter>
+        </receiver>
+        <service android:exported="true" android:name="com.google.firebase.iid.FirebaseInstanceIdService">
+            <intent-filter android:priority="-500">
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+        <provider android:authorities="com.dexcom.g6.region3.mmol.firebaseinitprovider" android:exported="false" android:initOrder="100" android:name="com.google.firebase.provider.FirebaseInitProvider"/>
+        <activity android:exported="false" android:name="com.google.android.gms.common.api.GoogleApiActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <meta-data android:name="android.support.VERSION" android:value="26.1.0"/>
+        <meta-data android:name="com.google.android.wearable.beta.app" android:resource="@xml/android_wear_micro_apk"/>
+    </application>
+</manifest>
